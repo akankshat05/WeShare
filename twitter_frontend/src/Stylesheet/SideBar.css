@@ -1,0 +1,20 @@
+.SideBar_container{
+    flex: 0.2;
+    border: 2px solid red;
+    display: flex;
+    flex-direction: column;
+}
+.SideBar_HomeIcon{
+    margin-bottom: 1.5em;
+    border: 2px solid hotpink;
+    margin-left: .5em;
+}
+.SideBar_Twiticon{
+    color: blue;
+    /* margin-left: 0.5em; */
+    padding: 0.5em ;
+}
+.SideBar{
+    border: 2px solid orange;
+    margin-left: .5em;
+}
