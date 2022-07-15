@@ -5,8 +5,8 @@ const jwt= require('jsonwebtoken')
 const User = require('../Model/User/userSchema') //database values..
 // SIGN UP ROUTE
 router.post('/register', async (req,res)=>{
-    const {username, password, vpassword, profilePic} = req.body
-    if (!username|| !password|| !profilePic || !vpassword){
+    const {username, password, vpassword} = req.body
+    if (!username|| !password|| !vpassword){
         return res.status(500).json({error: "fill all fields"})
     }
 try{
@@ -18,8 +18,8 @@ try{
         return res.status(503).json({error: "passwords should match"})
    }
    else{
-        const user = new User({username, password, vpassword, profilePic})
-        //BCRYPT..
+        const user = new User({username, password, vpassword})
+        //BCRYPT..      
         const userRegistered = await user.save() // save in mongoDB collection
         if(userRegistered){
             res.status(201).json({message: "user registeered success"})

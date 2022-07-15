@@ -5,7 +5,7 @@ const Tweet = require('../Model/User/tweetsSchema') //database values..
 router.get('/tweets', (req,res) => {
     Tweet.find({})
     .then((data)=>{
-     // console.log(data) prints all TWEETS
+     // console.log(data) prints all TWEETS here in the console
         res.json(data) // prints on SERVER page localhost:5002/api/tweets
     })
     .catch((error)=>{
@@ -26,17 +26,41 @@ newTweet.save((error) =>{
         })
 })
 })
-//API ROUTE TO DELETE A TWEET
-router.post('/delete', (req,res)=>{
-    const deletedocument = async (newtweet) => {
+//API TO UPDATE THE LIKES OF A TWEET
+router.post('/update', (req,res)=>{    
+    const updatedocument = async (newtweetid, task) => {
         try {
-            await Tweet.deleteOne({newtweet})
+            if(task == 'increment'){
+                await Tweet.updateOne({_id: newtweetid}, {$set: {"likes" : 1 }})
+                res.status(200).json({msg: "tweet updated"})
+            }
+            else{
+                await Tweet.updateOne({_id: newtweetid}, {$set: {"likes" : 0 }})
+                res.status(200).json({msg: "tweet updated"})
+            }
         }catch(err){
             console.log(err)
         }
     }
-    const todelete = req.body.newtweet 
+    const toUpdate = req.body.newtweetid
+    const taskTodo = req.body.task
+    updatedocument(toUpdate, taskTodo)
+    console.log(`${toUpdate}: tweet is updated`);
+})
+
+
+//API ROUTE TO DELETE A TWEET
+router.post('/delete', (req,res)=>{
+    const deletedocument = async (tweetid) => {
+        try {
+            await Tweet.deleteOne({_id : tweetid})
+        }catch(err){
+            console.log(err)
+        }
+    }
+    const todelete = req.body.newtweetid
     deletedocument(todelete)
     console.log(`${todelete}: tweet is delted`);
 })
+
 module.exports = router

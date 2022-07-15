@@ -1,116 +1,135 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import axios from 'axios'
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import '../Stylesheet/TweetBox.css' 
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import '../Stylesheet/TweetBox.css'
-class TweetBox extends React.Component{
-    state ={
-        newtweet:'',
-        file:'',
-        posts: []
-    }
-    componentDidMount = () =>{
-        this.getAllTweets()
-    }
-    getAllTweets= () => {
+import FavoriteIcon from '@mui/icons-material/Favorite';
+const TweetBox = () => {
+  const [post, setPost] = useState({likes:0, file:"", body: ""})
+const [posts, setPosts] = useState([])
+  useEffect(() => {    
+        getAllTweets()
+     },[]);
+    const getAllTweets= () => {
         axios.get('./api/tweets')
         .then((response)=>{
             const data = response.data
-            this.setState({posts: data})
+            // correctly getting an array of saved tweets in database
+            console.log(data)
+            displayAllTweets(data)
         }).catch(()=>{
-            alert('error retvering data')
+            alert('error retrieveing data')
         })
     }
-    deleteTweet= () => {
-    const finaldata = {
-        newtweet: "me" // passing the tweet value actaul to be deleted
+    const displayAllTweets = (data) => {
+        setPosts(data)
     }
-    axios({
-        url:'/api/delete',
-        method:'POST',
-        data:finaldata
-    }).then((res)=> {
-        console.log(res)
-    }).catch((err)=> {
-        console.log(err)
-    })
-}
-    handleInputs = (event) => {
-        const name = event.target.name
-        const value = event.target.value
-        this.setState({[name] : value})
-    }
-    submit = (event) => {
+  const submit = (event) => {
         event.preventDefault()
         const payload = {
-            newtweet: this.state.newtweet,
-            file: this.state.file
+            newtweet: post.body,
+            file: post.file,
+            likes: post.likes
         }
         axios({
             url:'/api/save',
             method:'POST',
             data:payload
         }).then(()=>{
-            console.log("data has been sent to the backend")
-            this.resetuserinputs()
-            this.getAllTweets()
+            console.log("a post has been sent to the backend")
+            setPost({likes:0,file:"",body:""})
+            getAllTweets()
         })
         .catch(()=>{
             console.log("error. data has not been sent to the backend")
         })
     }
-    resetuserinputs = () =>{
-        this.setState({
-            newtweet: '',
-            file: ''
+   const handleInputs = (event) => {
+        const name = event.target.name
+        const value = event.target.value
+        setPost({...post, [name] : value})
+    }
+        //     // UPDATE TWEET    
+    const updateTweet= (id, task) => {
+        const finaldata = {
+            newtweetid: id,
+            task: task
+        }
+        //update the tweet ID 
+        axios({
+            url:'/api/update',
+            method:'POST',
+            data:finaldata
+        }).then((res)=> {
+            getAllTweets()
+        }).catch((err)=> {
+            console.log(err)
         })
     }
-    displayAllTweets = (posts) => {
-        if (!posts.length) 
-            return null
-        // tweet body
-        return posts.map((post, index)=>{
+    const deleteOne= (id) => {
+    const finaldata = {
+        newtweetid: id
+    }
+    //pass the tweet ID TO DELETED
+    axios({
+        url:'/api/delete',
+        method:'POST',
+        data:finaldata
+    }).then((res)=> {
+        getAllTweets()
+    }).catch((err)=> {
+        console.log(err)
+    })
+}
+    return (
+    <div>
+    <form id="post_form" onSubmit={submit}>
+    <input onChange={handleInputs}
+        name="body"
+        type="text"
+        value={post.body}
+        placeholder="what's happening?"
+        class="happening" />
+     <div className="Tweet_fileUpload">
+        <div className="tweet_button">
+        <button class="hey" 
+        style={{cursor: 'pointer'}}>Tweet</button>
+        </div>
+    </div>
+    </form>
+    {/* <Result result={posts}/> */}
+
+    <div class="mt-3">
+    {posts.map((item) => {
+            let task = ''
+            let result = item.likes
+            if(item.likes == 0){
+                task = 'increment'
+            }
+            else{
+                task='decrement'
+            }
             return (
-            <div key={index} className="tweet_body">
-                <h3>tweet: {post.newtweet}</h3>
-                <FavoriteIcon/>
-                <DeleteOutlineIcon/>
+            <div class="mb-5" style={{backgroundColor: "red"}}>
+            <h1> {item.newtweet} </h1>
+            <span onClick={
+                ()=>{updateTweet(item._id, task)
+                getAllTweets()
+            }}><FavoriteIcon/></span>
+            {result}
+            <span onClick={()=>
+                {deleteOne(item._id)
+                getAllTweets()
+                }
+                }><DeleteOutlineIcon/></span>
             </div>
             )
-        })
-}
-    render(){
-        console.log('state', this.state)
-        return(
-            <div>
-            <h1>HOME</h1>
-            <form onSubmit={this.submit}>
-            <div className="TweetBox_container">
+   })
+   }
+   </div>
 
-           <input onChange={this.handleInputs} 
-           name="newtweet"
-           type="text" 
-           value={this.state.newtweet}
-           placeholder="what's happening?" />
-           </div>
-           <div className="Tweet_fileUpload">
-               <div className="file">
-               <label>File Upload</label>
-               <input onChange={this.handleInputs}
-               name="file"
-               type="file"
-               value={this.state.file}  />
-               </div>
-               <div className="tweet_button">
-                   <button>TWEET</button>
-               </div>
-           </div>  
-            </form>
-            <button onClick={this.deleteTweet}> delete </button>
-            <div className="results">{this.displayAllTweets(this.state.posts)}</div>
-            </div>
-        )
-    }
+    </div>
+  )
 }
+
+
 export default TweetBox
-

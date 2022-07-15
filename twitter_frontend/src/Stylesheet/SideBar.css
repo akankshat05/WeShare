@@ -1,20 +1,23 @@
+
 .SideBar_container{
     flex: 0.2;
-    border: 2px solid red;
+    /* border: 2px solid red; */
     display: flex;
+    padding-left: 20px;
     flex-direction: column;
 }
 .SideBar_HomeIcon{
     margin-bottom: 1.5em;
-    border: 2px solid hotpink;
+    /* border: 2px solid hotpink; */
     margin-left: .5em;
+    color : rgb(29, 155, 240)!important;
 }
-.SideBar_Twiticon{
-    color: blue;
-    /* margin-left: 0.5em; */
+#SideBar_icon{
     padding: 0.5em ;
+    width: 50px;
+    height: 50px;
 }
 .SideBar{
-    border: 2px solid orange;
+    /* border: 2px solid orange; */
     margin-left: .5em;
 }

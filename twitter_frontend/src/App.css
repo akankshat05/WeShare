@@ -1,6 +1,9 @@
-* {
-    margin: 0;
-    padding: 0;
-    font-family:'Times New Roman', Times, serif;
-
+.icon{
+    color : rgb(29, 155, 240);
+}
+html,body{
+    margin: 0px;
+}
+*{
+    font-family: "TwitterChirpExtendedHeavy", "Verdana";
 }

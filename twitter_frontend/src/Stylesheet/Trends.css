@@ -1,4 +1,16 @@
 .trends{
     flex: 0.2;
-    border: 2px solid blue;
+    border: 2px solid rgba(0,0,0,0.1);
+    /* padding: 5px 20px 5px 20px; */
+    display: flex;
+    border-radius: 40px;
+    margin: 30px 20px 0px 20px;
+
+}
+.bold{
+    font-weight: 700;
+}
+.blue{
+    color : rgb(29, 155, 240);
+    text-decoration: none;
 }

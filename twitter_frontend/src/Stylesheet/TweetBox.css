@@ -1,40 +1,35 @@
 .TweetBox_container{
     display: flex;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     flex-direction: column;
-    padding-left: 2em;
+    /* padding-left: 2em; */
 }
 .tweet_body{
-    border: 5px solid red;
-}
-.TweetBox_title{
-    padding: 1em 0 1em 0;
-    border-bottom: 2px solid beige;
+    /* border: 5px solid red; */
+    text-align: center;
 }
 .TweetBox{
     display: flex;
     align-items: center;
     margin-top: 1em
 }
-.TweetBox > input{
-    border: none;
-    border-bottom: 1.5px solid grey;
-    font-size: 1.5rem;
-    margin-left: 1.5rem;
 
+#post_form{
+    border-bottom: 2px solid rgba(0,0,0,0.1);
 }
-
 .Tweet_fileUpload{
     display: flex;
     margin: 2rem 0 2rem 0;
     justify-content: space-between; 
 }
 .tweet_button{
-    border: 2px solid red;
+    /* border: 2px solid red; */
     padding-right: 30px;
 }
-
-
+.happening{
+    border: none !important ;
+    /* padding-left: 15px; */
+}
 /* button */
 .tweet_button > button{
     background-color: rgb(135,206,250) ;

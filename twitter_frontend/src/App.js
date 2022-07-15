@@ -12,15 +12,12 @@ function App() {
   return (
     <Router className="App">
       <Switch>
-        
         <Route path="/signup">
               <SignUp />
         </Route>
-
         <Route path="/signin">
               <SignIn />
         </Route>
-
         <Route path="/">
              <Home />
         </Route>

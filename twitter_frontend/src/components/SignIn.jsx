@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
 import { useHistory } from 'react-router'
+import '../Stylesheet/SignIn.css'
+import TwitterIcon from '@mui/icons-material/Twitter';
 const SignIn = () => {
 const history = useHistory()
 const [username, setUsername]= useState('')
@@ -26,8 +28,8 @@ const loginUser = async (e)=>{
     }
 }
     return (
-        <div>
-                    <form action="" className="form">
+        <>
+                {/* <form action="" className="form">
                     <label >Username</label>
                     <input  type="text"
                      placeholder="username" value={username}
@@ -39,8 +41,41 @@ const loginUser = async (e)=>{
                      onChange={(e) => setPassword(e.target.value)} 
                      autoComplete='off'  />
                     <button onClick={loginUser}>SIGN IN</button>
-                </form>
-        </div>
+                </form> */}
+    <div class="flex">
+    <div className="signIn_details">
+    <div className="text-center mb-3 icon" ><TwitterIcon /></div>
+    <div className="signIn_section">
+    <div>Sign in to Twitter</div>
+    <div className="google"> 
+    Sign in with Google
+    </div>
+    <div className="apple">
+    Sign in with Apple
+    </div>
+    <div class="text-center" style={{fontWeight: 600}}>or</div>
+    <div className='input'>
+    <input  
+    class="mb-3"
+    type="text"
+    placeholder="username" value={username}
+    autoComplete='off'
+    onChange={(e) => setUsername(e.target.value)}  />
+    </div>
+
+    <div className='input'>
+    <input 
+    class="mb-3"
+    type="password" 
+    placeholder="password" value={password}
+    onChange={(e) => setPassword(e.target.value)} 
+    autoComplete='off'  />
+    </div>
+    <button onClick={loginUser}>Sign In</button>
+</div>  
+</div>
+</div>
+        </>
     )
 }
 export default SignIn

@@ -5,7 +5,7 @@ const userSchema= mongoose.Schema({
     username: {type: String, required: true, unique:true},
     password: {type: String, required: true},
     vpassword: {type:String, required: true},
-    profilePic: {type: String, required: true},
+    // profilePic: {type: String, required: true},
     tokens: [{
         token:{type:String, required: true}
     }]
