@@ -22,15 +22,15 @@ try{
         //BCRYPT..      
         const userRegistered = await user.save() // save in mongoDB collection
         if(userRegistered){
-            res.status(201).json({message: "user registeered success"})
+            res.status(201).json({message: "user registered success"})
         }else{
-            res.status(504).json({error: "soemthign went wrog"})
+            res.status(504).json({error: "something went wrong"})
         }
 }
 }
 catch(err){
-console.log(err, "this error")
-res.status(505).json({error: "worng.."})
+console.log(err)
+res.status(505).json({error: "wrong.."})
 }
 })
 //LOGIN ROUTE and check with one in database

@@ -18,7 +18,7 @@ const data = req.body
 const newTweet = new Tweet(data)
 newTweet.save((error) =>{
     if(error){
-        res.status(500).json({msg: "error savig tweet"})
+        res.status(500).json({msg: "error saving tweet"})
         return
     }
         return res.json({
@@ -60,7 +60,7 @@ router.post('/delete', (req,res)=>{
     }
     const todelete = req.body.newtweetid
     deletedocument(todelete)
-    console.log(`${todelete}: tweet is delted`);
+    console.log(`${todelete}: tweet is deleted`);
 })
 
 module.exports = router

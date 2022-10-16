@@ -1,6 +1,7 @@
 import Home from './components/Home';
 import SignUp from './components/SignUp'
 import SignIn from './components/SignIn'
+import EmailSignUp from './components/EmailSignUp'
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -12,15 +13,19 @@ function App() {
   return (
     <Router className="App">
       <Switch>
-        <Route path="/signup">
-              <SignUp />
+        <Route path="/home">
+              <Home />
         </Route>
         <Route path="/signin">
               <SignIn />
         </Route>
-        <Route path="/">
-             <Home />
+        <Route path="/email/signup">
+             <EmailSignUp />
         </Route>
+        <Route path="/">
+             <SignUp />
+        </Route>
+        
       </Switch>
     </Router>
   );
